@@ -1,0 +1,4 @@
+flask>=2.0
+requests
+gunicorn==21.2.0
+redis>=4.0,<5.0
