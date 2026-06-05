@@ -87,6 +87,7 @@ def _parse_package_json(path: Path) -> list[str]:
     """Extract dependency names from package.json.
 
     Reads both dependencies and devDependencies sections.
+    """
     deps = []
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
