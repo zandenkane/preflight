@@ -22,6 +22,40 @@ pip install -e ".[dev]"
 
 Python 3.10+.
 
+
+## example
+
+```
+$ preflight scan ./some-random-project
+
+languages detected:
+  Python 3.x (pyproject.toml, *.py files)
+
+package managers:
+  pip (pyproject.toml with [build-system])
+
+dependencies (12):
+  fastapi, uvicorn, sqlalchemy, alembic, redis, celery,
+  pydantic, httpx, python-jose, passlib, python-multipart, boto3
+
+environment variables (7):
+  DATABASE_URL          (found in: app/config.py, alembic.ini)
+  REDIS_URL             (found in: app/config.py, celery_app.py)
+  SECRET_KEY            (found in: app/config.py)
+  AWS_ACCESS_KEY_ID     (found in: app/s3.py)
+  AWS_SECRET_ACCESS_KEY (found in: app/s3.py)
+  S3_BUCKET             (found in: app/s3.py)
+  SMTP_HOST             (found in: app/email.py)
+
+services required:
+  PostgreSQL    (detected from: DATABASE_URL, sqlalchemy)
+  Redis         (detected from: REDIS_URL, celery)
+  S3-compatible (detected from: boto3, AWS_* env vars)
+
+ports:
+  8000 (uvicorn default)
+```
+
 ## Usage
 
 ```bash
