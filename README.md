@@ -2,9 +2,9 @@
 
 ![CI](https://github.com/zandenkane/preflight/actions/workflows/ci.yml/badge.svg)
 
-I built this because I was tired of cloning a repo, trying to run it, and then spending the next 3 hours figuring out what the hell it actually needs. Oh you need Redis? And Postgres? And 14 environment variables, 3 of which are undocumented? Cool cool cool.
+clone a repo. try to run it. it needs Redis. and Postgres. and 14 environment variables, 3 of which are not documented anywhere. spend the next 3 hours reading Dockerfiles and grepping for os.environ. question your career choices.
 
-`preflight` scans a project directory and tells you everything you need before you try to run it. Languages, package managers, dependencies, env vars, services, ports. All of it. One command.
+preflight skips all of that. point it at any project directory and it tells you everything you need to run it. languages, package managers, dependencies, env vars, services, ports. one command, done.
 
 No more reading through 6 config files and a half-written README just to find out the app needs Node 18 and a `.env` with `SECRET_KEY` in it.
 
