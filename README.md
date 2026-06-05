@@ -29,6 +29,12 @@ pip install -e ".[dev]"
 Python 3.10+.
 
 
+
+<p align="center">
+  <img src="assets/scan_result.png" alt="example scan output" width="90%">
+</p>
+
+
 ## example
 
 ```
