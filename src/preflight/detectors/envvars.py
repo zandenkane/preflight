@@ -104,4 +104,46 @@ def _scan_dotenv(path: Path, rel: str) -> list[EnvVar]:
 
 
 def detect_envvars(root: Path, files: list[Path]) -> list[EnvVar]:
-    """Scan source files for environment variable references. Also parses .env and .env.example files in the root directory. Returns a deduplicated list of env vars sorted alphabetically by name. results: list[EnvVar] = [] seen: set[str] = set() # Check for .env files in root for env_filename in (".env", ".env.example", ".env.sample", ".env.template"): env_path = root / env_filename if env_path.is_file(): for var in _scan_dotenv(env_path, env_filename): if var.name not in seen: seen.add(var.name) results.append(var) # Scan source files for filepath in files: ext = filepath.suffix.lower() patterns = EXTENSION_PATTERNS.get(ext) if not patterns: continue try: content = filepath.read_text(encoding="utf-8") except (OSError, UnicodeDecodeError): continue rel = str(filepath.relative_to(root)) for pattern in patterns: for match in pattern.finditer(content): name = match.group("name") if name not in seen: seen.add(name) gd = match.groupdict() has_default = "default" in gd and gd["default"] is not None results.append( EnvVar(name=name, source_file=rel, has_default=has_default) ) return sorted(results, key=lambda v: v.name)"""
+    """Scan source files for environment variable references.
+
+    Also parses .env and .env.example files in the root directory.
+    Returns a deduplicated list of env vars sorted alphabetically by name.
+    """
+    results: list[EnvVar] = []
+    seen: set[str] = set()
+
+    # Check for .env files in root
+    for env_filename in (".env", ".env.example", ".env.sample", ".env.template"):
+        env_path = root / env_filename
+        if env_path.is_file():
+            for var in _scan_dotenv(env_path, env_filename):
+                if var.name not in seen:
+                    seen.add(var.name)
+                    results.append(var)
+
+    # Scan source files
+    for filepath in files:
+        ext = filepath.suffix.lower()
+        patterns = EXTENSION_PATTERNS.get(ext)
+        if not patterns:
+            continue
+
+        try:
+            content = filepath.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
+            continue
+
+        rel = str(filepath.relative_to(root))
+
+        for pattern in patterns:
+            for match in pattern.finditer(content):
+                name = match.group("name")
+                if name not in seen:
+                    seen.add(name)
+                    gd = match.groupdict()
+                    has_default = "default" in gd and gd["default"] is not None
+                    results.append(
+                        EnvVar(name=name, source_file=rel, has_default=has_default)
+                    )
+
+    return sorted(results, key=lambda v: v.name)
