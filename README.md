@@ -1,6 +1,12 @@
-# preflight
+<p align="center">
+  <img src="assets/banner.png" alt="preflight" width="100%">
+</p>
 
-![CI](https://github.com/zandenkane/preflight/actions/workflows/ci.yml/badge.svg)
+<p align="center">
+  <a href="https://github.com/zandenkane/preflight/actions/workflows/ci.yml"><img src="https://github.com/zandenkane/preflight/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <img src="https://img.shields.io/badge/python-3776AB?style=flat&logo=python&logoColor=white" alt="python">
+  <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License">
+</p>
 
 clone a repo. try to run it. it needs Redis. and Postgres. and 14 environment variables, 3 of which are not documented anywhere. spend the next 3 hours reading Dockerfiles and grepping for os.environ. question your career choices.
 
